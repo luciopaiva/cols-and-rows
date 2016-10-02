@@ -6,7 +6,7 @@ import re
 
 def main(args):
     if len(args) < 3:
-        print 'Usage: ./prep.py <search_pattern> <replace_pattern>'
+        print 'Usage: ./prepm.py <search_pattern> <replace_pattern>'
         exit(0)
 
     pat = re.compile(args[1])
