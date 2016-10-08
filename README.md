@@ -10,7 +10,7 @@ be way simpler than that, at least for the average case!
 
 ## Usage
 
-    cat input.txt | ./cols.py <search_pattern> <replace_pattern>
+    cat input.txt | ./cols.py [<search_pattern>] <replace_pattern>
 
 Where `search_pattern` is the regexp pattern to be used to match the portion of each line in the input file to be
 replaced by `replace_pattern`. Rules are governed by
@@ -43,6 +43,31 @@ removing the fractional part of the right column. One way to do that is:
     13:59:07	285977
     13:59:08	288623
     13:59:09	283202
+
+Even better; for simple cases like the one above that you just want to remove some columns and possibly re-order others,
+you can just omit the `<search_pattern>` param and treat input as regular columns, separated by \s+ (any mix of spaces
+and tabs). For example, given the following input:
+
+    19:39:42         0,00 288915,31      0,00      0,00
+    19:39:43         0,00 283270,30      0,00      0,00
+    19:39:44         0,00 286699,00      0,00      0,00
+    19:39:45         2,00 286293,00      0,00      0,00
+    19:39:46         0,00 287045,00      0,00      0,00
+    19:39:47         0,00 286393,00      0,00      0,00
+    19:39:48         0,00 286517,00      0,00      0,00
+    19:39:49         0,00 289463,64      0,00      0,00
+
+If you want to take columns 1 and 3:
+
+    > cat input.txt | ./cols.py '\1\t\3'
+    19:39:42	288915,31
+    19:39:43	283270,30
+    19:39:44	286699,00
+    19:39:45	286293,00
+    19:39:46	287045,00
+    19:39:47	286393,00
+    19:39:48	286517,00
+    19:39:49	289463,64
 
 # rows - filtering lines
 
