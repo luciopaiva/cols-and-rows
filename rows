@@ -6,7 +6,7 @@ import re
 
 def main(args, argc):
     if argc not in (2, 3):
-        print 'Usage: ./rows.py [-x] <filter_pattern>'
+        print 'Usage: ./rows [-x] <filter_pattern>'
         exit(0)
 
     if argc == 3:

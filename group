@@ -113,8 +113,8 @@ class OperationFactory:
 
 def main(args, argc):
     if argc != 2:
-        print 'Usage: ./group.py <output_pattern>'
-        print "Example: cat input.tsv | ./group.py 'sum(1) avg(1)'"
+        print 'Usage: ./group <output_pattern>'
+        print "Example: cat input.tsv | ./group 'sum(1) avg(1)'"
         print "Available operations:"
         print "    sum, avg, min, max, first, last"
         print "Input is treated as columns separated by spaces and/or tabs; the first column has index 1."

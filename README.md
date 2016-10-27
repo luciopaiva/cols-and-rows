@@ -10,7 +10,7 @@ be way simpler than that, at least for the average case!
 
 ## Usage
 
-    cat input.txt | ./cols.py [<search_pattern>] <replace_pattern>
+    cat input.txt | ./cols [<search_pattern>] <replace_pattern>
 
 Where `search_pattern` is the regexp pattern to be used to match the portion of each line in the input file to be
 replaced by `replace_pattern`. Rules are governed by
@@ -32,7 +32,7 @@ For example, say you have the following input file:
 And you would like to remove the middle column and separate left and right columns by a tab char, and at the same time
 removing the fractional part of the right column. One way to do that is:
 
-    > cat input.txt | ./cols.py '^(\S+).*?(\d+),\d+$' '\1\t\2'
+    > cat input.txt | ./cols '^(\S+).*?(\d+),\d+$' '\1\t\2'
     13:59:00	282823
     13:59:01	283311
     13:59:02	288668
@@ -59,7 +59,7 @@ and tabs). For example, given the following input:
 
 If you want to take columns 1 and 3:
 
-    > cat input.txt | ./cols.py '\1\t\3'
+    > cat input.txt | ./cols '\1\t\3'
     19:39:42	288915,31
     19:39:43	283270,30
     19:39:44	286699,00
@@ -75,7 +75,7 @@ Simple tool to filter (in or out) lines of the input file.
 
 ## Usage
 
-    cat input.txt | ./rows.py [-x] <filter_pattern>
+    cat input.txt | ./rows [-x] <filter_pattern>
 
 Where `filter_pattern` is the regular expression used to decided whether the line should be filtered or not. By default,
 a match means the line is printed to the output. If `-x` is passed, the a match omits the line from the output.
@@ -95,7 +95,7 @@ For example, say you have a `sar` output like this:
 
 The output has a periodic header line, as well as a blank line. We want to filter this out:
 
-    > cat input.txt | ./prepf.py -x '^$|idgm'
+    > cat input.txt | ./prepf -x '^$|idgm'
     19:39:42         0,00 288915,31      0,00      0,00
     19:39:43         0,00 283270,30      0,00      0,00
     19:39:44         0,00 286699,00      0,00      0,00
@@ -107,7 +107,7 @@ The output has a periodic header line, as well as a blank line. We want to filte
 
 Now we can use `cols` to select columns:
 
-    > cat input.txt | ./rows.py -x '^$|idgm' | ./cols.py '^(\S+)\s+\S+\s+(\d+).*$' '\1\t\2'
+    > cat input.txt | ./rows -x '^$|idgm' | ./cols '^(\S+)\s+\S+\s+(\d+).*$' '\1\t\2'
     19:39:42	288915
     19:39:43	283270
     19:39:44	286699
@@ -123,7 +123,7 @@ Tool to aggregate numeric data using simple operations.
 
 ## Usage
 
-    cat input.tsv | ./group.py <output_pattern>
+    cat input.tsv | ./group <output_pattern>
 
 Available operations are `sum`, `avg`, `min`, `max`, `first`, `last`. Input is treated as columns separated by spaces
 and/or tabs; the first column has index 1.
@@ -149,7 +149,7 @@ For example, if you have the following input:
 
 You can aggregate the second column in the following way:
 
-    > cat input.tsv | ./group.py 'sum(2) avg(2) max(2) min(2)'
+    > cat input.tsv | ./group 'sum(2) avg(2) max(2) min(2)'
     223.0	13.9375	149.0	0.0
 
 Aggregated values will be presented in the same order they were requested, always separated by tab characters. Further

@@ -6,7 +6,7 @@ import re
 
 def main(args):
     if len(args) not in (2, 3):
-        print 'Usage: ./cols.py [<search_pattern>] <replace_pattern>'
+        print 'Usage: ./cols [<search_pattern>] <replace_pattern>'
         exit(0)
 
     if len(args) == 3:
