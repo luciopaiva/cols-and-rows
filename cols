@@ -9,22 +9,23 @@ def main(args):
         print 'Usage: ./cols [<search_pattern>] <replace_pattern>'
         exit(0)
 
-    if len(args) == 3:
-        repl = args[2]
-        pat = re.compile(args[1])
-    else:
-        repl = args[1]
-        positions = [re.sub(r'\\', '', pos) for pos in re.findall(r'\\\d+', repl)]
-        max_pos = 0
-        for pos in positions:
-            if pos > max_pos:
-                max_pos = pos
-        pat = r'^\s*' + r'\s+'.join([r'(\S+)'] * int(max_pos)) + r'.*$'
-        pat = re.compile(pat)
+    if len(args) == 3:  # we have both search and replace patterns
+        replace_pattern = args[2]
+        search_pattern = re.compile(args[1])
+    else:  # just have the replace pattern... let's build a default search pattern
+        replace_pattern = args[1]
+        # get all group references that appear in replace_pattern
+        group_refs = [int(re.sub(r'\\', '', pos)) for pos in re.findall(r'\\\d+', replace_pattern)]
+        biggest_group_ref = max(group_refs)
+        heading_match_all = r'^\s*'
+        trailing_match_all = r'.*$'
+        # everything that matches \s+ is used as a separator for spotting real data columns
+        search_pattern = heading_match_all + r'\s+'.join([r'(\S+)'] * biggest_group_ref) + trailing_match_all
+        search_pattern = re.compile(search_pattern)
 
     try:
         for line in sys.stdin:
-            print pat.sub(repl, line.strip())
+            print search_pattern.sub(replace_pattern, line.strip())
     except IOError:
         # may happen if stdout is closed by the process that follows in the pipeline
         pass
