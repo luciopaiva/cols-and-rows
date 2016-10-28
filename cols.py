@@ -4,12 +4,12 @@ import sys
 import re
 
 
-def main(args):
-    if len(args) not in (2, 3):
+def main(args, argc):
+    if argc not in (2, 3):
         print 'Usage: ./cols [<search_pattern>] <replace_pattern>'
         exit(0)
 
-    if len(args) == 3:  # we have both search and replace patterns
+    if argc == 3:  # we have both search and replace patterns
         replace_pattern = args[2]
         search_pattern = re.compile(args[1])
     else:  # just have the replace pattern... let's build a default search pattern
@@ -30,4 +30,6 @@ def main(args):
         # may happen if stdout is closed by the process that follows in the pipeline
         pass
 
-main(sys.argv)
+
+if __name__ == '__main__':
+    main(sys.argv, len(sys.argv))

@@ -26,4 +26,6 @@ def main(args, argc):
         # may happen if stdout is closed by the process that follows in the pipeline
         pass
 
-main(sys.argv, len(sys.argv))
+
+if __name__ == '__main__':
+    main(sys.argv, len(sys.argv))
