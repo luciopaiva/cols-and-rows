@@ -14,7 +14,7 @@ be way simpler than that, at least for the average case!
 
 Where `search_pattern` is the regexp pattern to be used to match the portion of each line in the input file to be
 replaced by `replace_pattern`. Rules are governed by
-[Python's regulare expression syntax](https://docs.python.org/2/library/re.html#regular-expression-syntax).
+[Python's regular expression syntax](https://docs.python.org/2/library/re.html#regular-expression-syntax).
 
 For example, say you have the following input file:
 
