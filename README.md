@@ -95,7 +95,7 @@ For example, say you have a `sar` output like this:
 
 The output has a periodic header line, as well as a blank line. We want to filter this out:
 
-    > cat input.txt | ./prepf -x '^$|idgm'
+    > cat input.txt | ./rows -x '^$|idgm'
     19:39:42         0,00 288915,31      0,00      0,00
     19:39:43         0,00 283270,30      0,00      0,00
     19:39:44         0,00 286699,00      0,00      0,00
